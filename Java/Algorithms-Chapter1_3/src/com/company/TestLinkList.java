@@ -47,15 +47,18 @@ public class TestLinkList<Item> implements Iterable<Item> {
 
     public void delete(int k) {
         Node<Item> currentItem = first;
-        Node<Item> prevItem;
+        Node<Item> prevItem=first;
         int i =0;
         if (k == 0) System.out.println("Nothing to delete");
 
-        while(i<k) {
+        while(i<(k-1)) {
             prevItem = currentItem;
+            //System.out.println("prev item is " + prevItem.item);
             currentItem = currentItem.next;
             i++;
         }
+        System.out.println("item to update is " + prevItem.item);
+        prevItem.next = currentItem.next;
 
         /*
         for (Node<Item> currentItem = first; currentItem != null; currentItem = currentItem.next) {
@@ -67,30 +70,38 @@ public class TestLinkList<Item> implements Iterable<Item> {
         Node<Item> currentNode = first;
         Node<Item> lastNode = first;
 
-        int i =0;
+        int i =0, counter=0;
         //System.out.println("last node is " + last.item);
         if(isEmpty()) System.out.println("Nothing to delete");
 
+        //find last node
         while(currentNode != null) {
             lastNode = currentNode;
             currentNode = currentNode.next;
         }
         System.out.println("Last node:" + lastNode.item);
         currentNode = first;
-        while(currentNode!= null) {
-            if(currentNode.next.item.equals(lastNode.item)) {
-                System.out.println("deleting:" + currentNode.item);
-                currentNode.next = null;
-                N--;
-                System.out.println("N is" + N);
-            }
-            currentNode = currentNode.next;
+        if (currentNode.item.equals(lastNode.item))
+        {
+            first = null;
+            last = null;
+            N--;
         }
-        System.out.println("first node is " + first.item);
-        System.out.println("new size is " + size());
+        //find 2nd last node set to null to delete last node. we check that the 2nd last node is pointing to the last node by ensuring it's next node points to null.
+        else {
+            while (currentNode != null) {
+                if (currentNode.next.item.equals(lastNode.item) && currentNode.next.next==null) {
+                    System.out.println("deleting:" + currentNode.item);
+                    currentNode.next = null;
+                    N--;
 
-        //set 2nd last node's next to null to delete last item
-        //N--;
+                    System.out.println("N is" + N);
+                }
+                currentNode = currentNode.next;
+            }
+        }
+        //System.out.println("first node is " + first.item);
+        System.out.println("new size is " + size());
 
     }
     public boolean isEmpty(){return first == null;}
@@ -129,14 +140,18 @@ public class TestLinkList<Item> implements Iterable<Item> {
         testLL.insert("test4");
         testLL.insert("test4");
         System.out.println("old size is " + testLL.size());
-        testLL.deleteLastNode();
-        testLL.deleteLastNode();
-        testLL.deleteLastNode();
-        for (String t : testLL) {
-            System.out.println(t);
-        }
-        //System.out.println("content is " + testLL.pop());
+        //testLL.deleteLastNode();
+        //testLL.deleteLastNode();
+        //testLL.deleteLastNode();
+        //testLL.deleteLastNode();
+        //testLL.deleteLastNode();
+        testLL.delete(4);
         System.out.println("size is " + testLL.size());
+
+        for (String t : testLL) {
+            System.out.println("after delete:" + t);
+
+        }
 
     }
 }
