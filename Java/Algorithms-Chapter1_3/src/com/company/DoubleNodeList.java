@@ -194,7 +194,7 @@ public class DoubleNodeList<Item> implements Iterable<Item> {
 
         ddl.removeFromEnd(ddl);
         ddl.removeFromBeginning(ddl);
-
+        //test
         /*
         Custom insert at beginning and at end testing (wihtout using insertbefore/after given node
          */
