@@ -100,7 +100,7 @@ public class DoubleNodeList<Item> implements Iterable<Item> {
             list.first = newNode;
         }
         else {
-            System.out.println("g node prev is " + givenNode.item);
+            //System.out.println("g node prev is " + givenNode.item);
             givenNode.prev.next = newNode;
         }
         givenNode.prev = newNode;
@@ -122,7 +122,33 @@ public class DoubleNodeList<Item> implements Iterable<Item> {
         }
     }
 
+    public static <Item> void removeFromBeginning(DoubleNodeList<Item> list) {
+        if (!list.isEmpty()) {
+            removeFromGivenNode(list, list.first);
+        }
+    }
 
+    public static <Item> void removeFromEnd(DoubleNodeList<Item> list) {
+        if(!list.isEmpty()) {
+            removeFromGivenNode(list,list.last);
+        }
+    }
+    public static <Item> void removeFromGivenNode(DoubleNodeList<Item> list, DoubleNode<Item> givenNode) {
+        if (givenNode.prev == null) {
+            list.first = givenNode.next;
+        }
+        else
+        {
+            givenNode.prev.next = givenNode.next;
+        }
+        if (givenNode.next == null) {
+            list.last = givenNode.prev;
+            list.last.next = null;
+        }
+        else {
+            givenNode.next.prev = givenNode.prev;
+        }
+    }
 
     public Iterator<Item> iterator() {return new ListIterator<Item>(first);}
 
@@ -166,17 +192,20 @@ public class DoubleNodeList<Item> implements Iterable<Item> {
         ddl.insertAtBeginnning(ddl,"3");
         ddl.insertAtEnd(ddl,"6");
 
+        ddl.removeFromEnd(ddl);
+        ddl.removeFromBeginning(ddl);
+
         /*
         Custom insert at beginning and at end testing (wihtout using insertbefore/after given node
          */
-        ddl.insertAtBeginnning2(ddl,"5");
+        /*ddl.insertAtBeginnning2(ddl,"5");
         ddl.insertAtBeginnning2(ddl,"4");
         ddl.insertAtBeginnning2(ddl,"3");
         ddl.insertAtBeginnning2(ddl,"6");
         ddl.insertAtEnd2(ddl,"1");
         ddl.insertAtEnd2(ddl,test2);
         ddl.insertAtBeginnning2(ddl,"3");
-        ddl.insertAtEnd2(ddl,"6");
+        ddl.insertAtEnd2(ddl,"6");*/
         //ddl.insertAtBeginnning(ddl,testNode3);
 
         Iterator ddlIterator = ddl.iterator();
